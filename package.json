@@ -3,16 +3,22 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "cucumber-js --format json:reports/cucumber_report.json",
+    "test:chromium": "cross-env BROWSER=chromium cucumber-js",
+    "test:firefox": "cross-env BROWSER=firefox cucumber-js",
+    "test:webkit": "cross-env BROWSER=webkit cucumber-js",
+    "report": "node generate-report.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "@playwright/test": "^1.62.1",
-    "@types/node": "^26.1.2"
-  },
-  "dependencies": {
-    "@cucumber/cucumber": "^13.2.1"
+    "@cucumber/cucumber": "^13.2.1",
+    "@types/node": "^26.1.2",
+    "dotenv": "^17.4.2",
+    "multiple-cucumber-html-reporter": "^2.0.0",
+    "playwright": "^1.62.1"
   }
 }
