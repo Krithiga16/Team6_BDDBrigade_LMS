@@ -2,7 +2,6 @@ require('dotenv').config();
 const { chromium, firefox, webkit } = require('playwright');
 const { Before, After } = require('@cucumber/cucumber');
 const ProgramPage = require('../../pageobjects/progrmaPage');
-const config = require('../../config/config');
 
 const browsers = { chromium, firefox, webkit };
 
@@ -17,9 +16,9 @@ Before(async function () {
     this.browser = await browserLauncher.launch({ headless: false });
     this.page = await this.browser.newPage();
     this.programPage = new ProgramPage(this.page);
-    this.baseUrl = config.baseUrl;
+    this.baseUrl = process.env.BASE_URL;
 });
 
 After(async function () {
-    //await this.browser.close();
+    await this.browser.close();
 });
