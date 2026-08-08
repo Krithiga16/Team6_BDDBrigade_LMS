@@ -1,0 +1,24 @@
+{
+    "pageTitle":"LMS",
+    "addBatchMenu": "Add New Batch",
+    "batchNameAlphabet": "BatchTest",
+    "errMsgBatchSuffix": "This field accept only numbers and max 5 count.",
+    "batchProgram" :"ProgramForBatch",
+    "batchProgram2":"Program-ForBatch",
+    "invalidDesc":"Batch&Desc",
+    "batchName":"222",
+    "batchName2":"223",
+    "noOfClass":"7",
+    "noOfClass2":"2",
+    "addBatchSuccess":"Successful",
+    "batchCreateMsg":"Batch Created Successfully",
+    "batchEditMsg":"Batch Updated Successfully",
+    "batchDelMsg":"batch Deleted",
+    "programFldErrMsg":"Program Name is required.",
+    "batchFldErrMsg":"Batch Name is required.",
+    "descFldErrMsg":"Invalid value entered in Description",
+    "statusFldErrMsg":"Status is required.",
+    "classesFldErrMsg":"Number of classes is required.",
+    "noBatchEntry": "Showing 0 to 0 of 0 entries"
+
+}
