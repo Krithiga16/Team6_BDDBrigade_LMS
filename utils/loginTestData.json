@@ -2,6 +2,8 @@
   "username": "Lmshackathon@gmail.com",
   "password": "lmsAug@2026",
   "splcharusername": "LMS@#2026",
-  "invalidUrl": "https://lms-frontend-6dcccb9dd0fa.herokuapp.com/invalid"
+  "invalidUrl": "https://lms-frontend-6dcccb9dd0fa.herokuapp.com/invalid",
+  "WrongPassword": "lmsAug@2025"
+
 }
  
