@@ -6,18 +6,6 @@ Given('The user is on the login page', async function () {
        
 });
 
-When('The user enters valid credentials and clicks on the login button',async function () {
-    
-    await this.programPage.enterUsername('Lmshackathon@gmail.com');
-    await this.programPage.enterPassword('lmsAug@2026');
-    await this.programPage.selectRole('admin');
-    await this.programPage.clickLoginButton();
-    });
-
-Then('The user should be logged in successfully', async function () {
-    assert.equal(await this.programPage.getpagetitle(), 'LMS');
-});
-
 Given('Admin is on home page after Login', async function () {
   console.log('User is on Home page');
 });

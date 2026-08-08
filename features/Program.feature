@@ -2,8 +2,8 @@ Feature: Program Module
 
 Background: User logged in to LMS application
 Given The user is on the login page
-  When The user enters valid credentials and clicks on the login button
-  Then The user should be logged in successfully
+  When Admin clicks login in button after entering  a valid credential
+  Then Admin should land on home page
 
   Scenario: Program page navigation
   Given Admin is on home page after Login
