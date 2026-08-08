@@ -71,3 +71,46 @@ Then('Admin should see elements on program page', async function (dataTable) {
     }
   }
 });
+
+Then('Admin should see data table with column header on the Manage Program Page as elements', async function (dataTable) {
+  const elements = dataTable.rows().flat(); 
+  for(const elementvalue of elements) {
+    let isvisible = false;
+    switch (elementvalue) {
+      case "Program Name":
+        isvisible = await this.programPage.HeaderProgramName.isVisible();
+        assert.ok(isvisible, `${elementvalue} should be visible`);
+        break;
+      case "Program Description":
+        isvisible = await this.programPage.HeaderProgramDescription.isVisible();
+        assert.ok(isvisible, `${elementvalue} should be visible`);
+        break;
+      case "Program Status":
+        isvisible = await this.programPage.Headerprogrmstatus.isVisible();
+        assert.ok(isvisible, `${elementvalue} should be visible`);
+        break;
+      case "Edit / Delete":
+        isvisible = await this.programPage.HeaderEditDelete.isVisible();
+        assert.ok(isvisible, `${elementvalue} should be visible`);
+        break;
+      default:
+        throw new Error(`Unknown element: ${elementvalue}`);
+    }
+  }
+});
+
+Then('Admin should see checkbox default state as unchecked beside Program Name column header', async function () {
+ 
+  const isChecked = await this.programPage.checkbox.isChecked();
+  assert.equal(isChecked, false, 'Checkbox should be unchecked by default');
+});
+
+Then('Admin should see check box default state as unchecked on the left side in all rows against program name', async function () {
+  
+  const checkboxesCount = await this.programPage.checkboxes.count();
+  for (let i = 0; i < checkboxesCount; i++) {
+    const isChecked = await this.programPage.checkboxes.nth(i).isChecked();
+    assert.equal(isChecked, false, `Checkbox in row ${i + 1} should be unchecked by default`);
+  }
+
+});
