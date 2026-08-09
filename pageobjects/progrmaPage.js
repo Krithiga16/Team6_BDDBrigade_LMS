@@ -19,6 +19,19 @@ module.exports = class ProgramPage {
         this.HeaderEditDelete = page.getByRole('columnheader', { name: 'Edit / Delete' });
         this.checkbox = page.locator("//div[@class='p-checkbox-box']")
         this.checkboxes = page.locator("//td//div[@role='checkbox']");
+        this.Headersort = page.locator("//th[@role='columnheader']//i[contains(@class , 'p-sortable')]");
+        this.programdetailsDialog = page.getByRole('dialog', { name: 'Program Details'});
+        this.programDetails = page.locator("//span[text()='Program Details']");
+        this.nameTextbox =   page.getByLabel('Name*', { exact: true });
+        this.descriptionTextbox = page.getByRole('textbox', { name: 'Description' });
+        this.Statuslable = page.getByText('Status*', { exact: true });
+        this.activeRadioButton = page.locator("//div[text()=' Active ']");
+        this.inactiveRadioButton =  page.locator("//div[text()=' Inactive ']");
+        this.cancelButton =  page.getByRole('button', { name: 'Cancel' });
+        this.SaveButton = page.getByText('Save');
+        this.nameAsterisk = page.locator("//label[text()='Name']//span");
+        this.statusAsterisk = page.locator("//lable[text()='Status']//span");
+        this.programdetailserrorMessage = page.getByText('Program name is required.');
     }
 
     async navigateToLoginPage(url) {

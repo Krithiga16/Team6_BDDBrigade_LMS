@@ -46,3 +46,8 @@ Scenario: Checkbox default state - header
   Given Admin is on home page after Login
    When Admin clicks Program on the navigation bar
    Then Admin should see check box default state as unchecked on the left side in all rows against program name 
+
+Scenario: Sort icon presence
+Given Admin is on home page after Login
+When Admin clicks Program on the navigation bar
+Then Admin should see the sort arrow icon beside to each column header except Edit and Delete 
