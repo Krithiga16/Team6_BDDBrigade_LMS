@@ -2,8 +2,8 @@ Feature: Program Module
 
 Background: User logged in to LMS application
 Given The user is on the login page
-  When The user enters valid credentials and clicks on the login button
-  Then The user should be logged in successfully
+  When Admin clicks login in button after entering  a valid credential
+  Then Admin should land on home page
 
   Scenario: Program page navigation
   Given Admin is on home page after Login
@@ -46,3 +46,8 @@ Scenario: Checkbox default state - header
   Given Admin is on home page after Login
    When Admin clicks Program on the navigation bar
    Then Admin should see check box default state as unchecked on the left side in all rows against program name 
+
+Scenario: Sort icon presence
+Given Admin is on home page after Login
+When Admin clicks Program on the navigation bar
+Then Admin should see the sort arrow icon beside to each column header except Edit and Delete 
