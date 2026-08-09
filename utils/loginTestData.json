@@ -3,7 +3,7 @@
   "password": "lmsAug@2026",
   "splcharusername": "LMS@#2026",
   "invalidUrl": "https://lms-frontend-6dcccb9dd0fa.herokuapp.com/invalid",
-  "WrongPassword": "lmsAug@2025"
-
+  "WrongPassword": "lmsAug@2025",
+  "PageTitle": "LMS"
 }
  

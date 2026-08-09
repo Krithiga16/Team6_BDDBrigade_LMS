@@ -141,7 +141,7 @@ When('Admin clicks login in button after entering  a valid credential', async fu
 });
 
 Then('Admin should land on home page', async function () {
-  assert.equal(await this.loginPage.getpagetitle(), 'LMS');
+  assert.equal(await this.loginPage.getpagetitle(), datajson.PageTitle);
   console.log('Admin is on the home page');
 });
 

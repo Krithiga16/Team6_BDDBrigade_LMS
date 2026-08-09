@@ -1,19 +1,14 @@
 class logoutPage {
     constructor(page) {
         this.page = page;
-        this.ogoutbtn = page.locator('#Logout');   
-
+         this.logoutButton = page.locator('#logout'); 
         
     }
-
+    
     async clickLogoutButton() {
-    await this.page.waitForTimeout(5000);
-    await this.logoutBtn.click();
+    await this.logoutButton.waitFor({ state: 'visible' });
+    await this.logoutButton.click();
   }
-
-  async getLoginPageTitle(){
-    return await this.page.title();
-   }
 
 }
 

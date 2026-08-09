@@ -76,12 +76,7 @@ class loginPage {
     return await this.page.title();
    }
 
-   async getLoginPageTitle(){
-    return await this.page.title();
-   }
-
-
- async isLoginButtonVisible() {
+   async isLoginButtonVisible() {
         return await this.loginBtn.isVisible();
     }
 
@@ -122,7 +117,5 @@ async loginUsingMouse(username, password) {
 }
 
 }
-
-
 
 module.exports = {loginPage};
