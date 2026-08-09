@@ -1,6 +1,7 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
 const assert = require('assert');
 const { expect } = require('@playwright/test');
+const ProgramData = require('../../utils/ProgramData.json');
 
 Given('The user is on the login page', async function () {
     await this.programPage.navigateToLoginPage(this.baseUrl);
@@ -213,4 +214,23 @@ Then('Admin can see Program Details form disappears', async function () {
    
   const isVisible = await this.programPage.manageprogram.isVisible();
   assert.ok(isVisible, 'Program Details form should disappear and Manage Program should be visible');
+});
+
+When('Admin clicks X button on program details dialog box', async function () {
+  await this.programPage.addNewprogrambtn.click();
+  await this.programPage.closeProgramDetailsDialog();
+});
+
+When('Admin enter valid details for mandatory fields and Click on save button', async function () {
+  await this.programPage.addNewprogrambtn.click();
+  await this.programPage.fillProgramDetails(ProgramData.validData.programName, ProgramData.validData.programDescription);
+  await this.programPage.clickActiveStatus();
+  await this.programPage.clickSaveButton();
+ 
+});
+
+Then('Admin gets message Successful Program created', async function () {
+  
+await expect(this.programPage.programSuccessmsg).toBeVisible();
+ 
 });

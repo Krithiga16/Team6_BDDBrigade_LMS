@@ -37,3 +37,13 @@ Scenario: cancel button functionality
 Given Admin is on Program details dialog box
 When Admin clicks Cancel button
 Then Admin can see Program Details form disappears 
+
+Scenario: Close button (X) functionality
+Given Admin is on Program details dialog box
+When Admin clicks X button on program details dialog box
+Then Admin can see Program Details form disappears 
+
+Scenario: Add new program with valid details
+Given Admin is on Program details dialog box
+When Admin enter valid details for mandatory fields and Click on save button
+Then Admin gets message Successful Program created
