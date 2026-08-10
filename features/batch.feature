@@ -6,11 +6,11 @@ Feature: Batch Page Validations
         Then Admin should be logged in successfully
 
     Scenario: Verify Admin is able to view Batch page 
-        Given Admin is on home page after Login
+        Given Admin is on home page after Login for Batch Module
         When Admin clicks Batch on the navigation bar
         Then Admin should be in the Manage Batch Page
 
     Scenario: Verify Batch-sub menu displayed
-        Given Admin is on home page after Login
+        Given Admin is on home page after Login for Batch Module
         When Admin clicks Batch on the navigation bar
         Then Admin should see sub menu in menu bar as Add New Batch
