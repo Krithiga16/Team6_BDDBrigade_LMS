@@ -17,9 +17,7 @@ class loginPage {
         this.studentOption = page.getByRole('option', { name: 'Student' });
         this.loginForm = page.locator('mat-card');
         this.loginInstruction = page.getByText('Please login to LMS');
-        this.userLabel = this.page.locator('#mat-form-field-label-1');
-         this.passwordLabel = this.page.locator('#mat-form-field-label-1').filter({ hasText: 'Password' });
-        //this.passwordLabel = this.page.locator('#mat-form-field-label-1');
+        this.passwordLabel = this.page.locator('label[for="password"]');
         this.inactiveUserMessage = page.getByText('Inactive User : Please contact your administrator.');
         this.specialCharacterError = page.getByText('Inactive User : Please');
         this.usernameError = page.getByText('Please enter your user name');
