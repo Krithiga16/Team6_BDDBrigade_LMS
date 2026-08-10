@@ -57,3 +57,8 @@ Scenario: Verify added Program is created
 Given Admin is on Program page 
 When Admin searches with newly created Program Name
 Then Admin should see the Records of the newly created Program details
+
+Scenario: Add new program with large description field
+Given Admin is on Program details dialog box
+When Admin enter program name and large description value and Click on save button
+Then Admin gets description is too large error message

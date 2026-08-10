@@ -16,6 +16,11 @@
   "UpdateDescription":{
     "programName": "Jenkins-next",
      "programDescription": "it is a CICD tool"
+  },
+  "LargeDescription":{
+
+    "programName": "PowerApps",
+    "programDescription": "Power apps is Microsoft tool it is low code application"
   }
 
 }

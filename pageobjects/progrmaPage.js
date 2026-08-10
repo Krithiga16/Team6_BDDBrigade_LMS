@@ -18,8 +18,9 @@ module.exports = class ProgramPage {
         this.HeaderProgramDescription = page.getByRole('columnheader', { name: 'Program Description' });
         this.Headerprogrmstatus = page.getByRole('columnheader', { name: 'Program Status' });
         this.HeaderEditDelete = page.getByRole('columnheader', { name: 'Edit / Delete' });
-        this.checkbox = page.locator("//div[@class='p-checkbox-box']")
-        this.checkboxes = page.locator('tbody.p-datatable-tbody').getByRole('checkbox');
+        this.checkbox = page.locator("//div[@class='p-checkbox-box']");
+        this.checkboxes = page.locator('p-tablecheckbox');
+        //page.locator('tbody.p-datatable-tbody').getByRole('checkbox');
         //page.locator("//td//div[@class='p-checkbox-box p-component']");
         this.Headersort = page.locator("//th[@role='columnheader']//i[contains(@class , 'p-sortable')]");
         this.programdetailsDialog = page.getByRole('dialog', { name: 'Program Details'});
@@ -38,6 +39,7 @@ module.exports = class ProgramPage {
         this.programSuccessmsg = page.locator(':text-is("Successful")');
         this.nameErrormsg = page.getByText('This field should start with an alphabet, no special char other than a hyphen and have min 4 char.');
         this.descriptionErrormsg =  page.getByText('This field should start with an alphabet and min 2 char.', { exact: true });
+        this.descriptionisLarge = page.getByText("This field description is loo large");
         this.editButton =  page.locator("//button[@id='editProgram']");
         //this.programUpdatemsg =  page.locator('div.p-toast-message-text.ng-tns-c20-13.ng-star-inserted')
         this.deleteButton = page.locator("//button[@id='deleteProgram']")
@@ -48,6 +50,18 @@ module.exports = class ProgramPage {
         this.programdeletesuccessmsg =  page.locator('.p-toast-summary');
         //page.locator('div.ng-tns-c21-2.p-toast.p-component.p-toast-top-right')
         this.nunmberofprograms = page.locator(".p-paginator-current.ng-star-inserted");
+        this.deletealert = page.getByRole('alert');
+        this.programNameSort = page.locator("//p-sorticon[@field = 'programName']")
+        this.sorticon =  page.locator("//i[@class='p-sortable-column-icon pi pi-fw pi-sort-amount-up-alt']");
+        this.sortDownicon = page.locator("//i[@class='p-sortable-column-icon pi pi-fw pi-sort-amount-down']")
+        this.DescriptionSort = page.locator("//p-sorticon[@field ='description']");
+        this.StatusSort = page.locator("//p-sorticon[@field ='status']");
+        this.nextprogrampage = page.locator("//button[@class ='p-paginator-next p-paginator-element p-link p-ripple']");
+        this.Programlastpage = page.locator("button.p-paginator-last");
+        this.Programpreviouspage = page.locator("button.p-paginator-prev");
+        this.programfirstpage = page.locator("button.p-paginator-first");
+        this.programpagenumber = page.locator("button.p-paginator-page");
+        this.rows = page.locator("//tbody//tr");
     }
 
     async navigateToLoginPage(url) {
@@ -180,14 +194,61 @@ async clickconfirmYesButton(){
 }
 
 async selectFirstNCheckboxes(count) {
-  const checkboxCount = await this.checkboxes.count();
-  const numberToSelect = Math.min(count, checkboxCount);
 
-  for (let i = 0; i < numberToSelect; i++) {
-    const checkbox = this.checkboxes.nth(i);
-    await checkbox.setChecked(true, { force: true });
-  }
+    await this.page.locator('p-tablecheckbox').first().waitFor({
+        state: 'visible',
+        timeout: 10000
+    });
+
+    const checkboxes = this.page.locator('p-tablecheckbox');
+
+    const checkboxCount = await checkboxes.count();
+
+    console.log("Checkbox count:", checkboxCount);
+
+    const numberToSelect = Math.min(count, checkboxCount);
+
+    for (let i = 0; i < numberToSelect; i++) {
+        await checkboxes.nth(i).click({ force: true });
+    }
+}
+async clickBulkDelete(){
+
+    await this.bulkDeleteButton.click();
+   
 }
 
+async clickprogramNameSort(){
+
+    await this.programNameSort.click();
+}
+
+async clickDescriptionSort(){
+    await this.DescriptionSort.click();
+}
+
+async clickStatusSort(){
+
+    await this.StatusSort.click();
+}
+
+async clicknextprogrampage(){
+
+    await this.nextprogrampage.click();
+}
+
+async clickprogramLastpage(){
+
+   // await this.Programlastpage.scrollIntoViewIfNeeded();
+    await this.Programlastpage.click();
+}
+
+async clickPreviousprogrampage(){
+
+    await this.Programpreviouspage.click();
+}
+async clickProgramfirstpage(){
+    await this.programfirstpage.click();
+}
 }
 

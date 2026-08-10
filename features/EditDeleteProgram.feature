@@ -56,3 +56,23 @@ Scenario: Select multiple programs
 Given Admin is on Program page
 When Admin selects more than one program by clicking on the checkbox
 Then Mulitple delete box under manage program must be enabled
+
+Scenario: Delete Multiple programs
+Given Admin is on Program page
+When Admin selects more than one program by clicking on the checkbox
+Then Admin will see confirm deletion dialog box open
+
+Scenario: Delete selected program
+Given Admin is on Confirmation form
+When Admin clicks No button on bulk delete confirm dailog box
+Then Admin can see Programs are still selected and not deleted
+
+Scenario: Close Multiple deletion confirmation
+Given Admin is on Program Confirm Deletion Page after selecting a program to delete
+When Admin Click on X button on bulk Program delete dailog
+Then Admin can see Confirm Deletion form disappear
+
+Scenario: Delete selected program
+Given Admin is on Confirmation form
+When Admin clicks on "Yes" button on bulk delete dailog box 
+Then Admin can see "Successful  program deleted" message
