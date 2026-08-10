@@ -1,6 +1,21 @@
 {
   "validData": {
-    "programName": "Jenkins",
-    "programDescription": "Jenkins is CICD Tool"
+    "programName": "testdata",
+    "programDescription": "it is a cicd tool"
+  },
+
+  "invalidData":{
+     "programName": "1234",
+    "programDescription": "123 4567"
+  },
+
+  "UpdateprogramName":{
+     "programName": "Jenkins-new",
+     "programDescription": "it is a cicd tool"
+  },
+  "UpdateDescription":{
+    "programName": "Jenkins-next",
+     "programDescription": "it is a CICD tool"
   }
+
 }
