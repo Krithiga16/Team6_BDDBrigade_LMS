@@ -89,3 +89,16 @@ Feature: Manage Batch Validations - Edit and Delete Batch and Delete Multiple Ba
     Scenario: Last page arrow enabled on first page
         When Admin clicks first page link on the data table
         Then Admin should see Last page arrow >> enabled
+
+    Scenario: Last Page Navigation
+        When Admin clicks the last page option >> in the pagination control
+        Then Admin should see the next page > disabled
+
+    Scenario: Sorting of batch name in Ascending order
+        When Admin clicks on Arrow next to batch name
+        Then Admin should See the batch details sorted by batch Name in Ascending order
+
+    Scenario: Sorting of batch name in Descending order
+        Given Admin is in Batch page where Batch names are sorted in ascending order
+        When Admin clicks on Arrow next to batch name to check descending
+        Then Admin should See the batch Name is sorted in Descending order

@@ -502,3 +502,31 @@ Then('Admin should see Last page arrow >> enabled', async function(){
     const islastPageBtnDisabled = await this.batchPage.lastPageBtnDisabled();
     expect(islastPageBtnDisabled).toBe(false)    
 })
+//Last Page Navigation
+When('Admin clicks the last page option >> in the pagination control', async function(){
+    await this.batchPage.lastPageBtnClick();
+})
+Then('Admin should see the next page > disabled', async function(){
+    const isNextPageBtnDisabled = await this.batchPage.nextPageBtnDisabled();
+    expect(isNextPageBtnDisabled).toBe(true)    
+})
+//Sorting of batch name in Ascending order
+When('Admin clicks on Arrow next to batch name', async function(){
+    await this.batchPage.searchBatch(datasetBatch.batchProgram+'_'+datasetBatch.sortBatch)
+})
+Then('Admin should See the batch details sorted by batch Name in Ascending order',async function(){
+    const {actualAscValue,expectedAscValue } = await this.batchPage.getAscSortedValuesBatchName()
+    expect(actualAscValue).toEqual(expectedAscValue)
+})
+
+//Sorting of batch name in Descending order
+Given('Admin is in Batch page where Batch names are sorted in ascending order', async function(){
+    await this.batchPage.searchBatch(datasetBatch.sortBatch)
+})
+When('Admin clicks on Arrow next to batch name to check descending', async function(){
+    await this.batchPage.sortBtnClick();
+})
+Then('Admin should See the batch Name is sorted in Descending order', async function(){
+    const {actualDesValue,expectedDesValue } = await this.batchPage.getDesSortedValuesBatchName() 
+    expect(actualDesValue).toEqual(expectedDesValue)   
+})

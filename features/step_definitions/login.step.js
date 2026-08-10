@@ -1,7 +1,7 @@
 const {Given, When, Then ,setDefaultTimeout } = require('@cucumber/cucumber');
 const assert = require('assert');
 const datajson = JSON.parse(JSON.stringify(require('../../utils/loginTestData.json')));
-const { expect } = require('@playwright/test');
+const { request, expect } = require('@playwright/test');
 
 setDefaultTimeout(60 * 1000);
 
@@ -30,14 +30,16 @@ Then('Admin should receive error message', async function () {
     assert.equal(errorMessage, true);
 });
 
+//@BrokenLink
+When('Admin enters the Valid LMS app URL.', async function () {
+    this.response = await this.page.goto(this.baseUrl);
+});
 
-
-
-/*Then('HTTP response should be greater than or equal to 400. Then the link is broken', async function () {
-    const isBroken = await this.loginPage.verifyHTTPResponse(400);
-    expect(isBroken).toBeTruthy();
-
-});*/
+Then('Admin should not see a broken link', async function () { 
+    const status = this.response.status();
+    console.log('HTTP Response:', status);
+    expect(status).toBeLessThan(400);
+});
 
 //@ApplicationLogo
 Then('Admin should see Application Logo', async function () {
@@ -147,7 +149,7 @@ Then('Admin should land on home page', async function () {
 
 //@splcharacLogin
 When('Admin clicks login in button after entering special character in username', async function () {
-    await this.loginPage.enterUsername(datajson.splcharUsername);
+    await this.loginPage.enterUsername(datajson.splcharusername);
     await this.loginPage.enterPassword(datajson.password);
     await this.loginPage.selectRole();
     await this.loginPage.clickLoginButton();
@@ -155,7 +157,7 @@ When('Admin clicks login in button after entering special character in username'
 
 Then('Admin should see a Error message {string}', async function (expectedText) {
   const errorMessage = await this.loginPage.specialCharacterError.textContent();
-  assert.equal(errorMessage, expectedText);
+  assert.equal(errorMessage.trim(), expectedText);
 });
 
 //@EmptyUserNameLogin
