@@ -1,15 +1,32 @@
 {
-    "default": {
-        "paths":[
-            "features/addNewBatchUI.feature",
-            "features/manageBatchUI.feature",
-            "features/batch.feature",
-            "features/addNewBatch.feature",
-            "features/batchSearchBar.feature",
-            "features/manageBatch.feature"
-        ],
-        "formatOptions": {
-            "snippetInterface": "synchronous"
-        }
-    }
+  "sequential": {
+    "paths": [
+      "features/addNewBatch.feature",
+      "features/batchSearchBar.feature"
+    ],
+    "parallel": 1,
+    "formatOptions": {
+      "snippetInterface": "synchronous"
+    },
+    "format": [
+      "progress",
+      "json:reports/sequential-report.json"
+    ]
+  },
+  "parallel": {
+    "paths": [
+      "features/addNewBatchUI.feature",
+      "features/manageBatchUI.feature",
+      "features/batch.feature",
+      "features/manageBatch.feature"
+    ],
+    "parallel": 2,
+    "formatOptions": {
+      "snippetInterface": "synchronous"
+    },
+    "format": [
+      "progress",
+      "json:reports/parallel-report.json"
+    ]
+  }
 }
