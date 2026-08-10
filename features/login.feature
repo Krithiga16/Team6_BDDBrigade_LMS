@@ -1,5 +1,5 @@
 @login
-Feature: login page
+Feature: login page validations
 
 @validURL
 Scenario: Login page is displayed successfully
@@ -107,16 +107,46 @@ Scenario:Successful login with valid credentials
 Scenario: Login with spl charac in user name
     Given Admin is on login Page
     When Admin clicks login in button after entering special character in username
-    Then Admin should see Error message "Inactive User : Please contact Admin for assistance"
+    Then Admin should see a Error message "Inactive User : Please contact Admin for assistance"
 
 @EmptyUserNameLogin
  Scenario: Login attempt with empty username
     Given Admin is on login Page
     When Admin has entered only the password and selected a role
-    Then Admin should see Error message "Please enter your user name"
+    Then Admin should see Errormessage "Please enter your user name"
 
 @EmptyPasswordLogin
  Scenario: Login attempt with empty password
     Given Admin is on login Page
     When Admin has entered only the username and selected a role
-    Then Admin should see Error message "Please enter your password " 
+    Then Admin should see the Error message "Please enter your password " 
+
+@InvalidpasswordLogin
+ Scenario:Login attempt with wrong password
+  Given Admin is on login Page
+  When Admin clicks login in button after entering valid username , role and wrong password
+  Then Admin should see Error message "Invalid username and password Please try again"
+
+@emptyRoleLogin
+  Scenario: Login attempt without selecting any role
+  Given Admin is on login Page
+  When Admin has entered a valid username and password without selecting a role
+  Then Admin should see Error Messge " Please select your Role"
+
+@Invalidrolelogin
+   Scenario:Login Attempt with invalid role
+    Given Admin is on login Page
+    When Admin clicks login in button after selecting a invalid role and entering valid username ,password
+    Then Admin should see error Messge "Please select correct role" 
+
+@KeyboardLogin
+   Scenario: Login Attempt using Keyboard
+   Given Admin is on login Page
+   When Admin clicks login in button after entering  a valid credential through keyboard
+   Then Admin should land on home page
+
+@MouseLogin
+  Scenario: Login Attempt using Mouse
+   Given Admin is on login Page
+   When Admin clicks login in button after entering  a valid credential through mouse
+   Then Admin should land on home page

@@ -14,10 +14,6 @@ Feature: Add New Batch - Functional Validation
         When Admin enters the valid data to all the mandatory fields and click cancel button
         Then Admin should see the batch details popup closes without creating any batch
 
-    Scenario: Add new batch only with mandatory fields
-        When Admin enters the data only to the mandatory fields and clicks save button
-        Then Admin should get a successful message
-
     Scenario: Add new batch with leaving space in mandatory field - Program Name
         When Admin leaves Program Name field blank enters value in other fields and click save
         Then Admin should get error message for Program Name field
@@ -33,6 +29,18 @@ Feature: Add New Batch - Functional Validation
     Scenario: Add new batch with leaving space in mandatory field - Number of Classes
         When Admin leaves Number of Classes field blank enters value in other fields and click save
         Then Admin should get error message for Number of Classes field
+
+    Scenario: Batch name Prefix cannot be edited
+        Given Admin is on Batch details dialog box
+        Then Admin sees the Batch Prefix field is disabled 
+
+    Scenario: Add new batch only with mandatory fields
+        When Admin enters the data only to the mandatory fields and clicks save button
+        Then Admin should get a successful message
+
+    Scenario: Add new batch only with all fields
+        When Admin enters the data in all fields and clicks save button
+        Then Admin should see the added batch in the Data Table
 
     Scenario: Program name appears as batch prefix
         When Admin selects program name present in the dropdown

@@ -19,34 +19,36 @@ class BatchPage {
         this.saveBtnBatch = page.getByText('Save')
         this.cancelBtnBatch = page.getByText('Cancel')
         this.closeBtn = page.locator('[class*="p-dialog-header-close-icon"]')
+        this.dialogCloseBtn = page.locator('.p-dialog-header-close')
         this.mandatoryMsgFld = page.locator('small[class*="p-invalid"]')
         this.toastSummary = page.locator('.p-toast-summary')
         this.toastDetails = page.locator('.p-toast-detail')
         this.searchFld = page.locator('input[id="filterGlobal"]')
         this.paginator = page.locator('.p-paginator-current')
         this.batchPrefix = page.locator('#batchProg')
-        this.editBtn = page.locator('span[class*="pi-pencil"]')
+        this.editBtn = page.locator('tbody tr span[class*="pi-pencil"]')
         this.deleteBtn = page.locator('div.action').locator('span[class*="pi-trash"]')
+        this.chkboxBtn = page.locator('tbody tr p-tablecheckbox')
         this.confirmDialogBox = page.locator('div[class*="p-confirm-dialog"]')
         this.dialogTitle = page.locator('span[class*="p-dialog-title"]')
         this.dialogBtns = page.locator('span[class*="p-button-label"]')
         this.btnReject = page.locator('button[class*="p-confirm-dialog-reject"]')
         this.btnAccept = page.locator('button[class*="p-confirm-dialog-accept"]')
         this.batchTable = page.locator('tbody[class="p-datatable-tbody"]')
+        this.manageBatchHeader = page.locator('mat-card-title')
+        this.headerDeleteBtn = page.locator('.mat-card-title').locator('button[class*="p-button-danger"]')
+        this.dataTableBatch = page.locator('div[class*="p-datatable-wrapper"]')
+        this.paginatorSection = page.locator('div[class*="p-paginator"]')
+        this.tableHeaders = page.locator('thead tr th')
+        this.chkboxHeader = page.locator('thead tr th p-tableheadercheckbox')
+        this.sortIcon = page.locator('thead p-sorticon')
+        this.batchNameTable = page.locator('//tbody/tr/td[2]')
+        this.firstPageBtn = page.locator('.p-paginator-first')
+        this.prevPageBtn = page.locator('.p-paginator-prev')
+        this.nextPageBtn = page.locator('.p-paginator-next')
+        this.lastPageBtn = page.locator('.p-paginator-last')
+        this.pageNumBtn = page.locator('.p-paginator-page')
     }
-
-    async goToURL(){
-        await this.page.goto('https://lms-frontend-hackathon-6dcccb9dd0fa.herokuapp.com/');
-    }
-
-    async loginUser(){
-        await this.page.getByRole('textbox', {name: 'User'}).fill('lmshackathon@gmail.com');
-        await this.page.getByRole('textbox', {name: 'Password'}).fill('lmsAug@2026');
-        await this.page.getByRole('combobox', {name: /Select the role/i}).click();
-        await this.page.getByRole('option', {name: 'Admin', exact: false}).click();
-        await this.page.getByRole('button', {name: 'Login'}).click();
-    }
-
     async getpagetitle(){
         return await this.page.title();
    }
@@ -111,6 +113,7 @@ class BatchPage {
 
     async clickCloseBtn(){
         await this.closeBtn.click();
+        await this.page.waitForTimeout(2000)
     }
 
     async viewMandatoryFldMsg(){
@@ -126,6 +129,7 @@ class BatchPage {
     }
 
     async verifyBatchDetailsDialog_NotVisible(){
+        await this.page.waitForTimeout(2000);
         try {
             await this.batchDetailsDialog.waitFor({ state: 'visible', timeout: 3000 });
             return true;
@@ -176,7 +180,11 @@ class BatchPage {
         await this.btnAccept.click();
     }
 
+    async clickDialogCloseBtn(){
+        await this.dialogCloseBtn.click();
+    }
     async confirmDialogDisplay(){
+        await this.page.waitForTimeout(2000);
         try {
             await this.confirmDialogBox.waitFor({ state: 'visible', timeout: 3000 });
             return true;
@@ -194,6 +202,10 @@ class BatchPage {
 
     async batchNameVisible(){
         return await this.batchName.isVisible()
+    }
+
+    async batchProgEditable(){
+        return await this.batchPrefix.isEditable()
     }
 
     async batchDescVisible(){
@@ -219,6 +231,124 @@ class BatchPage {
         return await this.programList.isVisible()
     }
 
+    async deleteBtnHeaderSection(){
+        const deleteBtnDisableH = await this.headerDeleteBtn.isDisabled();
+        const deleteBtnVisibleH = await this.headerDeleteBtn.isVisible();
+        return {deleteBtnDisableH,deleteBtnVisibleH};
+    }
 
+    async deleteBtnHeaderClick(){
+        await this.headerDeleteBtn.click();
+    }
+
+    async paginatorVisible(){
+       return await this.paginatorSection.isVisible();
+    }
+
+    async paginatorPosition(){
+        await this.dataTableBatch.waitFor({state: 'visible'})
+        await this.paginatorSection.waitFor({state: 'visible'})
+        const tableBox = await this.dataTableBatch.boundingBox();
+        const paginatorBox = await this.paginatorSection.boundingBox();
+        const tableBoxY = tableBox.y;
+        const paginatorBoxY = paginatorBox.y
+        return {tableBoxY, paginatorBoxY}
+    }
+
+    async searchBarPosition(){
+        const dTableBox = await this.dataTableBatch.boundingBox();
+        const searchBarBox = await this.searchFld.boundingBox();
+        const dTableBoxY = dTableBox.y;
+        const searchBarBoxY = searchBarBox.y;
+        return {dTableBoxY, searchBarBoxY}
+    }
+
+    async editIconEachRow(){
+        return await this.editBtn.count()
+    }
+
+    async deleteIconEachRow(){
+        return await this.deleteBtn.count()
+    }
+
+    async checkboxEachRow(){
+        return await this.chkboxBtn.count()
+    }
+
+    async getBatchTblHeaders(){
+        const headerVal = await this.tableHeaders.allInnerTexts();
+        const actualHeaders = headerVal.slice(1).map(a=>a.trim());
+        return actualHeaders;
+    }
+
+    async chkBoxHeaderVisible(){
+        return await this.chkboxHeader.isVisible();
+    }
+
+    async chkboxHeaderClick(){
+        await this.chkboxHeader.click();
+    }
+
+    async sortIconHeader(){
+        return await this.sortIcon.count()
+    }
+
+    async searchBarVisible(){
+        return await this.searchFld.isVisible();
+    }
+    async manageBatchHeaderName(){
+        const manageBatchVal = (await this.manageBatchHeader.innerText()).trim()
+        return manageBatchVal
+    }
+
+    async batchTableSearch(batchSearch){
+        const batchCells = await this.batchNameTable
+        const allBatchNames = await batchCells.allInnerTexts();
+        return allBatchNames.some(name => name.trim() === batchSearch);
+    }
+
+    async firstPageBtnClick(){
+        await this.firstPageBtn.click();
+    }
+    async prevPageBtnClick(){
+        await this.prevPageBtn.click();
+    }
+    async nextPageBtnClick(){
+        await this.nextPageBtn.click();
+    }
+    async lastPageBtnClick(){
+        await this.lastPageBtn.click();
+    }
+
+    async firstPageBtnDisabled(){
+        const firstPageDisable = await this.firstPageBtn.isDisabled();
+        return firstPageDisable;
+    }
+    async prevPageBtnDisabled(){
+        const prevPageDisable = await this.prevPageBtn.isDisabled();
+        return prevPageDisable;
+    }
+    async nextPageBtnDisabled(){
+        const nextPageDisable = await this.nextPageBtn.isDisabled();
+        return nextPageDisable;
+    }
+    async lastPageBtnDisabled(){
+        const lastPageDisable = await this.lastPageBtn.isDisabled();
+        return lastPageDisable;
+    }
+
+    async getCurrentPage(){
+        return await this.paginator.innerText();
+    }
+
+    async pageNumClick(pageNumber){
+        const pageCnt = await this.pageNumBtn.count();
+        for(let num=0; num< pageCnt; num++){
+            const pageNum = await this.pageNumBtn.nth(num).innerText();
+            if(pageNum == pageNumber){
+                await this.pageNumBtn.nth(num).click();
+            }
+        }
+    }
 }
 module.exports = BatchPage;
