@@ -6,6 +6,7 @@ const BatchPage = require('../../pageobjects/batchPage');
 const { loginPage } = require('../../pageobjects/loginPage');
 const { logoutPage } = require('../../pageobjects/logoutPage');
 const { homePage } = require('../../pageobjects/homePage');
+const {logTestResults, getScreenshotFileName} = require('../../utils/logger')
 
 const browsers = { chromium, firefox, webkit };
 
@@ -27,6 +28,23 @@ Before(async function () {
     this.baseUrl = process.env.BASE_URL;
 });
 
-After(async function () {
-  //  await this.browser.close();
+After(async function (scenario) {
+    async function onTestComplete(scenario){
+        const name = scenario.pickle.name;
+        const status = scenario.result.status;
+
+        logTestResults(name, status);
+
+        if (status === 'FAILED'){
+            const fileName = getScreenshotFileName(name);
+            if(this.page){
+                await this.page.screenshot({path: `./screenshots/${fileName}`, fullPage: true});
+            }
+        }
+    }
+    await onTestComplete.call(this, scenario);
+    if(this.browser){
+        await this.browser.close();
+    }
+    
 });
