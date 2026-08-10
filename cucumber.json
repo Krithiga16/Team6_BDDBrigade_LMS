@@ -15,12 +15,15 @@
   },
   "parallel": {
     "paths": [
+      "features/login.feature",
+      "features/home.feature",
       "features/addNewBatchUI.feature",
       "features/manageBatchUI.feature",
       "features/batch.feature",
-      "features/manageBatch.feature"
+      "features/manageBatch.feature",
+      "features/logout.feature"
     ],
-    "parallel": 2,
+    "parallel": 4,
     "formatOptions": {
       "snippetInterface": "synchronous"
     },

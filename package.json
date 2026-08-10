@@ -9,17 +9,20 @@
     "test:firefox": "cross-env BROWSER=firefox cucumber-js",
     "test:webkit": "cross-env BROWSER=webkit cucumber-js",
     "report": "node generate-report.js",
-    "batchTest": "npx cucumber-js --exit --format html:BatchReport.html"
+    "test:seq": "npx cucumber-js --profile sequential",
+    "test:par": "npx cucumber-js --profile parallel",
+    "lmsExecution": "npm run test:seq & npm run test:par & node generate-report.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "@cucumber/cucumber": "^13.2.1",
     "@playwright/test": "^1.62.1",
-    "@types/node": "^26.1.2"
-  },
-  "dependencies": {
-    "@cucumber/cucumber": "^13.2.1"
+    "@types/node": "^26.1.2",
+    "dotenv": "^17.4.2",
+    "multiple-cucumber-html-reporter": "^2.0.0",
+    "playwright": "^1.62.1"
   }
 }
