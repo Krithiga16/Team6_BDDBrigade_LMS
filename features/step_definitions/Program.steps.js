@@ -30,8 +30,7 @@ Then('Admin should see sub menu in menu bar as {string}', async function (expect
 });
 
 Then('Admin should see elements on program page', async function (dataTable) {
-  const elements = dataTable.rows().flat(); // ['Manage Program', 'Delete button', 'Search bar', 'search... placeholder text']
-
+  const elements = dataTable.rows().flat(); 
   for (const elementvalue of elements) {
     let isvisible = false;
 
@@ -233,4 +232,384 @@ Then('Admin gets message Successful Program created', async function () {
   
 await expect(this.programPage.programSuccessmsg).toBeVisible();
  
+});
+
+When('Admin enters a numeric value as the Program Name', async function () {
+  await this.programPage.addNewprogrambtn.click();
+  await this.programPage.fillProgramDetails(ProgramData.invalidData.programName, ProgramData.invalidData.programDescription);
+  await this.programPage.clickActiveStatus();
+  await this.programPage.clickSaveButton();
+});
+
+Then('Admin should see error message {string} under program name field', async function (string) {
+  
+  await expect(this.programPage.nameErrormsg).toBeVisible();
+  await expect(this.programPage.descriptionErrormsg).toBeVisible();
+});
+
+When('Admin searches with newly created Program Name', async function () {
+  await this.programPage.searchProgram(ProgramData.validData.programName);
+});
+
+Then('Admin should see the Records of the newly created Program details', async function () {
+  const programCell = await this.programPage.isProgramVisible(ProgramData.validData.programName);
+  await expect(programCell).toBeVisible();
+});
+
+When('Admin clicks on Edit option for particular program', async function () {
+  await this.programPage.searchProgram(ProgramData.validData.programName);
+  await this.programPage.clickEditButtonForProgram();
+});
+
+When('Admin clicks save button after editing the {string}', async function (programfield) {
+    
+  if(programfield === "program name"){
+    await this.programPage.searchProgram(ProgramData.validData.programName);
+    await this.programPage.clickEditButtonForProgram();
+    await this.programPage.fillProgramDetails(ProgramData.UpdateprogramName.programName, ProgramData.UpdateprogramName.programDescription);
+    await this.programPage.clickSaveButton();
+  } else if (programfield === "Program Description"){
+    await this.programPage.searchProgram(ProgramData.UpdateprogramName.programName);
+    await this.programPage.clickEditButtonForProgram();
+    await this.programPage.fillProgramDetails(ProgramData.UpdateDescription.programName , ProgramData.UpdateDescription.programDescription);
+    await this.programPage.clickSaveButton();
+  }
+ 
+});
+
+Then('Admin should see program update {string}', async function (expectedMasg) {
+  await expect(this.programPage.programSuccessmsg).toBeVisible({ timeout: 5000 });
+  await expect(this.programPage.programSuccessmsg).toContainText(expectedMasg, {timeout:5000});
+});
+
+When('Admin searches with newly updated Program Name', async function () {
+
+  await this.programPage.searchProgram(ProgramData.UpdateDescription.programName);
+  
+});
+
+Then('Admin verifies that the details are correctly updated', async function () {
+  const programCell = await this.programPage.isProgramVisible(ProgramData.UpdateDescription.programName);
+  await expect(programCell).toBeVisible();
+});
+
+When('Admin clicks on delete icon for a program', async function () {
+  await this.programPage.searchProgram(ProgramData.validData.programName);
+  await this.programPage.clickDeletebutton();
+});
+
+Then('Admin will get confirm deletion dialog box', async function () {
+  
+  await expect(this.programPage.deleteconfirmDailog).toBeVisible();
+});
+
+Given('Admin is on Program Confirm Deletion Page after selecting a program to delete',async  function () {
+   console.log("user is not Delete program dailog box")
+});
+
+When('Admin clicks on No button', async function () {
+  await this.programPage.searchProgram(ProgramData.validData.programName);
+  await this.programPage.clickDeletebutton();
+  await this.programPage.clickDeleteprogramNobutton();
+   
+});
+
+Then('Admin can see Confirmation form disappears', async function () {
+ 
+  await expect(this.programPage.deleteconfirmDailog).not.toBeVisible();
+  
+});
+
+When('Admin Click on X button on Program delete dailog', async function () {
+
+  await this.programPage.searchProgram(ProgramData.validData.programName);
+  await this.programPage.clickDeletebutton();
+  await this.programPage.clickdeleteprogramdailog();
+  
+});
+
+Then('Admin can see Confirm Deletion form disappear', async function () {
+
+await expect(this.programPage.deleteconfirmDailog).not.toBeVisible();
+  
+});
+
+When('Admin clicks on Yes button on program delete dailog', async function () {
+   await this.programPage.searchProgram(ProgramData.validData.programName);
+  await this.programPage.clickDeletebutton();
+  await this.programPage.clickconfirmYesButton();
+});
+
+Then('Admin can see {string} message', async function (string) {
+  //console.log(this.programPage.deletealert.textContent());
+  await expect(this.programPage.deletealert).toBeVisible();
+  
+});
+
+When('Admin Searches for Deleted Program name', async function () {
+
+ await this.programPage.searchProgram(ProgramData.validData.programName);
+});
+
+Then('There should be zero results', async function () {
+
+  const text = await this.programPage.nunmberofprograms.textContent();
+  await assert.ok(text, "Showing 0 to 0 of 0 entries");
+});
+
+When('Admin selects more than one program by clicking on the checkbox', async function () {
+   await this.programPage.clickEscape();
+   await this.programPage.checkbox.click();
+});
+
+Then('Mulitple delete box under manage program must be enabled', async function () {
+   
+     await expect(this.programPage.bulkDeleteButton).toBeEnabled();
+});
+
+Then('Admin will see confirm deletion dialog box open',async function () {
+   await this.programPage.clickBulkDelete();
+   await expect(this.programPage.deleteconfirmDailog).toBeVisible();
+});
+
+Given('Admin is on Confirmation form', async function () {
+  console.log("Admin is on delete confirm dailog box")
+});
+
+When('Admin clicks No button on bulk delete confirm dailog box',async function () {
+  await this.programPage.clickEscape();
+   await this.programPage.checkbox.click();
+  await this.programPage.clickBulkDelete();
+  await this.programPage.clickDeleteprogramNobutton();
+});
+
+Then('Admin can see Programs are still selected and not deleted', async function () {
+  await expect(this.programPage.deleteconfirmDailog).not.toBeVisible();
+  console.log("delete canceled");
+});
+
+When('Admin Click on X button on bulk Program delete dailog', async function () {
+   await this.programPage.clickEscape();
+   await this.programPage.checkbox.click();
+  await this.programPage.clickBulkDelete();
+  await this.programPage.clickdeleteprogramdailog();
+});
+
+When('Admin clicks on {string} button on bulk delete dailog box', async function (string) {
+       await this.programPage.clickEscape();
+       await this.programPage.selectFirstNCheckboxes(2);
+       await this.programPage.clickBulkDelete();
+       await this.programPage.clickconfirmYesButton();
+
+});
+
+When('Admin clicks on Arrow next to programName', async function () {
+   await this.programPage.clickEscape();
+   await this.programPage.clickprogramNameSort();
+   
+});
+
+Then('Admin should  See the Program Name is sorted in Ascending order', async function () {
+  await expect(this.programPage.sorticon).toBeVisible();
+ const className = await this.programPage.sorticon.getAttribute('class')
+   await assert.ok(className, 'amount-up-alt');
+});
+
+Given('Admin is in program page where Program names are sorted in ascending order', async function () {
+  await this.programPage.clickEscape();
+  await this.programPage.clickprogramNameSort(); 
+  
+});
+
+Then('Admin should See the Program Name is sorted in Descending order', async function () {
+   await expect(this.programPage.sortDownicon).toBeVisible({timeout: 30000});
+  const className = await this.programPage.sortDownicon.getAttribute('class', {timeout: 30000})
+   await assert.ok(className, 'sort-amount-down');
+});
+
+When('Admin clicks on Arrow next to ProgramDescription', async function () {
+  await this.programPage.clickEscape();
+  await this.programPage.clickDescriptionSort();
+});
+
+Then('Admin should See the program Description is sorted in Ascending order', async function () {
+
+   
+ const ascend = await this.programPage.HeaderProgramDescription.getAttribute('aria-sort')
+   await assert.ok(ascend, 'ascending'); 
+  
+});
+
+Given('Admin is in program page where Program description are sorted in ascending order', async function () {
+   await this.programPage.clickEscape();
+   await this.programPage.clickDescriptionSort();
+});
+
+Then('Admin  should See the program Description is sorted in Descending order', async function () {
+  const desend = await this.programPage.HeaderProgramDescription.getAttribute('aria-sort')
+   await assert.ok(desend, 'descending'); 
+});
+
+When('Admin clicks on Arrow next to Program status', async function () {
+     await this.programPage.clickEscape();
+     await this.programPage.clickStatusSort();
+});
+
+Then('Admin should see the Program status sorted in Ascending order', async function () {
+  const ascend = await this.programPage.Headerprogrmstatus.getAttribute('aria-sort')
+   await assert.ok(ascend, 'ascending'); 
+});
+
+Given('Admin is in program page where Program status are sorted in ascending order',async function () {
+  await this.programPage.clickEscape();
+     await this.programPage.clickStatusSort();
+});
+
+
+Then('Admin should see the Program status sorted in Descending order', async function () {
+  const desend = await this.programPage.HeaderProgramDescription.getAttribute('aria-sort')
+   await assert.ok(desend, 'descending'); 
+   await expect(this.programPage.HeaderProgramDescription).toHaveAttribute('aria-sort', 'descending')
+});
+
+Given('Admin is on Program page with multiple program records', async function () {
+  
+     console.log("Admin is on program page with list of programs")
+});
+
+When('Admin clicks the next page option \\(>) in the pagination control',async function () {
+   await this.programPage.clickEscape();
+   await this.programPage.clicknextprogrampage();
+});
+
+Then('Admin should navigate to the next page and see the next set of program records', async function () {
+
+  const noofprogram = await this.programPage.nunmberofprograms.textContent();
+  await assert.ok(noofprogram , 'Showing 11 to 20');
+  await expect(this.programPage.nunmberofprograms).toContainText('Showing 11 to 20')
+});
+
+Given('Admin is on any page except the last page of Program table', async function () {
+    console.log("Admin in on Last page of programs")
+});
+
+When('Admin clicks the last page option \\(>>) in the pagination control', async function () {
+    await this.programPage.clickEscape();
+    await this.programPage.clickprogramLastpage();
+    
+});
+
+Then('Admin should see the last page record on the table',async function () {
+  
+     await expect(this.programPage.Programlastpage).toBeDisabled();
+});
+
+Given('Admin is on the Program table on any page except the first page', async function () {
+  console.log("Admin is not on first page of programs")
+});
+
+When('Admin clicks the previous page option \\(<) in the pagination control', async function () {
+  await this.programPage.clickEscape();
+   var isEnable = await this.programPage.Programpreviouspage.isEnabled();
+  if(isEnable == false){
+    await this.programPage.clicknextprogrampage();
+    console.log(await this.programPage.nunmberofprograms.textContent())
+    isEnable  = await this.programPage.Programpreviouspage.isEnabled();
+    console.log(isEnable)
+    await this.programPage.clickPreviousprogrampage();
+  }
+  
+});
+
+Then('Admin should see the previous page record on the table', async function () {
+   console.log(await this.programPage.nunmberofprograms.textContent())
+   await expect(this.programPage.nunmberofprograms).toContainText('Showing 1 to 10')
+});
+
+
+Given('Admin is on any page except the first page of Program table', async function () {
+   console.log("Admin is not on first page of programs")
+});
+
+When('Admin clicks the first page option \\(<<) in the pagination control', async function () {
+
+  await this.programPage.clickEscape();
+   var isEnable = await this.programPage.programfirstpage.isEnabled();
+  if(isEnable == false){
+    await this.programPage.clickprogramLastpage();
+    console.log(await this.programPage.nunmberofprograms.textContent())
+    isEnable  = await this.programPage.programfirstpage.isEnabled();
+    console.log(isEnable)
+    await this.programPage.clickProgramfirstpage();
+  }
+ 
+});
+
+Then('Admin should see the very first page record on the table',async function () {
+
+  await expect(this.programPage.programfirstpage).toBeDisabled();
+  await expect(this.programPage.nunmberofprograms).toContainText('Showing 1 to 10');
+  
+});
+
+Given('Admin is on home page after Login', async function () {
+   
+  console.log("Admin is on home page")
+});
+
+When('Admin clicks {string} on the navigation bar', async function (string) {
+    
+  await this.programPage.clickEscape();
+ // await this.programPage.clickProgramButton();
+  
+});
+
+Then('{string} should be displayed', async function (expectedText) {
+   await this.programPage.checkboxes.first().waitFor({
+    state: 'visible',
+    timeout: 10000
+});
+   const count = await this.programPage.checkboxes.count();
+  if(count == 0){
+    await expect(this.programPage.nunmberofprograms).toHaveText(expectedText)
+  }else {
+    console.log("programs : " , await this.programPage.nunmberofprograms.textContent())
+  }
+  
+});
+
+Then('Admin should see pagination icons disabled', async function () {
+  await this.programPage.rows.first().waitFor({
+    state: 'visible',
+    timeout: 10000
+});
+  const count = await this.programPage.rows.count();
+  console.log(count)
+  if(count <= 5){
+    await expect(this.programPage.nextprogrampage).toBeDisabled();
+    await expect(this.programPage.Programlastpage).toBeDisabled();
+    await expect(this.programPage.programfirstpage).toBeDisabled();
+    await expect(this.programPage.Programpreviouspage).toBeDisabled();
+     
+  }else {
+    console.log("programs : " , await this.programPage.nunmberofprograms.textContent())
+  }
+});
+
+When('Admin enter program name and large description value and Click on save button', async function () {
+  await this.programPage.addNewprogrambtn.click();
+  await this.programPage.fillProgramDetails(ProgramData.LargeDescription.programName, ProgramData.LargeDescription.programDescription);
+  await this.programPage.clickActiveStatus();
+  await this.programPage.clickSaveButton();
+  await expect(this.programPage.programdetailsDialog).not.toBeVisible();
+  await this.programPage.page.screenshot({
+        path: 'screenshots/after-save-button.png',
+        fullPage: true
+    });
+});
+
+Then('Admin gets description is too large error message', async function () {
+    
+
+    await expect(this.programPage.descriptionisLarge).toBeVisible();
 });
