@@ -8,7 +8,8 @@
     "test:chromium": "cross-env BROWSER=chromium cucumber-js",
     "test:firefox": "cross-env BROWSER=firefox cucumber-js",
     "test:webkit": "cross-env BROWSER=webkit cucumber-js",
-    "report": "node generate-report.js"
+    "report": "node generate-report.js",
+    "batchTest": "npx cucumber-js --exit --format html:BatchReport.html"
   },
   "keywords": [],
   "author": "",

@@ -1,5 +1,13 @@
 {
     "default": {
+        "paths":[
+            "features/addNewBatchUI.feature",
+            "features/manageBatchUI.feature",
+            "features/batch.feature",
+            "features/addNewBatch.feature",
+            "features/batchSearchBar.feature",
+            "features/manageBatch.feature"
+        ],
         "formatOptions": {
             "snippetInterface": "synchronous"
         }
