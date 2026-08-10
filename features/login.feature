@@ -12,13 +12,19 @@ Scenario: Access app with invalid URL
       Given Admin is on the browser
       When Admin enters the invalid LMS app URL.
       Then Admin should receive error message
+
+@BrokenLink
+Scenario:Broken link verification
+     Given Admin is on the browser
+     When Admin enters the Valid LMS app URL.
+     Then Admin should not see a broken link
       
 @ApplicationLogo
 Scenario: Application Logo is displayed
    Given Admin is on the browser
    When Admin enters the Valid LMS app URL 
    Then Admin should see Application Logo
-  
+
 @LoginInstructionMessage   
 Scenario:Login instruction message is displayed
    Given Admin is on the browser
@@ -72,6 +78,12 @@ Scenario:Dropdown options to select role
       Given Admin is on the browser
       When Admin enters the Valid LMS app URL
       Then Admin should see "Admin", " Staff " ," Student " options in dropdown
+      
+@LoginFormAlignmnet
+ Scenario:Alignment of the login form
+      Given Admin is on the browser
+      When Admin enters the Valid LMS app URL
+      Then Admin should see login form on the centre of the page
 
 @LoginFormPresence
 Scenario:Alignment of the login form

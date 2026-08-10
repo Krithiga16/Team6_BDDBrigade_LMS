@@ -1,6 +1,6 @@
 {
     "default": {
-        "paths":[
+         "paths":[
             "features/addNewBatchUI.feature",
             "features/manageBatchUI.feature",
             "features/batch.feature",
