@@ -18,7 +18,7 @@ Before(async function () {
         throw new Error(`Unknown browser: ${browserType}. Use chromium, firefox, or webkit.`);
     }
 
-    this.browser = await browserLauncher.launch({ headless: true });
+    this.browser = await browserLauncher.launch({ headless: false });
     this.page = await this.browser.newPage();
     this.loginPage = new loginPage(this.page);
     this.logoutPage = new logoutPage(this.page);
