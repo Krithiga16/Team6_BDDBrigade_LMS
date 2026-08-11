@@ -47,3 +47,18 @@ Scenario: Add new program with valid details
 Given Admin is on Program details dialog box
 When Admin enter valid details for mandatory fields and Click on save button
 Then Admin gets message Successful Program created
+
+Scenario: Add new program with numeric program name
+Given Admin is on Program details dialog box
+When Admin enters a numeric value as the Program Name
+Then Admin should see error message "This field should start with an alphabet, no special char other than a hyphen and have min 4 char" under program name field
+
+Scenario: Verify added Program is created
+Given Admin is on Program page 
+When Admin searches with newly created Program Name
+Then Admin should see the Records of the newly created Program details
+
+Scenario: Add new program with large description field
+Given Admin is on Program details dialog box
+When Admin enter program name and large description value and Click on save button
+Then Admin gets description is too large error message

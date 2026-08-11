@@ -79,17 +79,11 @@ Scenario:Dropdown options to select role
       When Admin enters the Valid LMS app URL
       Then Admin should see "Admin", " Staff " ," Student " options in dropdown
       
-@LoginFormAlignmnet
- Scenario:Alignment of the login form
-      Given Admin is on the browser
+@InputFieldAlignment
+ Scenario: Input field label alignment
+     Given Admin is on the browser
       When Admin enters the Valid LMS app URL
-      Then Admin should see login form on the centre of the page
-
-@LoginFormPresence
-Scenario:Alignment of the login form
-      Given Admin is on the browser
-      When Admin enters the Valid LMS app URL
-      Then Admin should see login form on the centre of the page
+      Then Username , Password labels and select the role should be left-aligned above their respective input fields
 
 @LoginButtonDisplayed
 Scenario:Login button is displayed
