@@ -23,7 +23,7 @@
       "features/manageBatch.feature",
       "features/logout.feature"
     ],
-    "parallel": 2,
+    "parallel": 1,
     "formatOptions": {
       "snippetInterface": "synchronous"
     },
