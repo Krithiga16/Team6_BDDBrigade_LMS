@@ -10,8 +10,7 @@
     },
     "format": [
       "progress",
-      "json:reports/sequential-report.json",
-      "allure-cucumberjs/reporter"
+      "json:reports/sequential-report.json"
     ]
   },
   "parallel": {
@@ -35,8 +34,7 @@
     },
     "format": [
       "progress",
-      "json:reports/parallel-report.json",
-      "allure-cucumberjs/reporter"
+      "json:reports/parallel-report.json"
     ]
   }
 }
