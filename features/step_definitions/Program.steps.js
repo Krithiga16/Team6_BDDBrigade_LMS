@@ -132,7 +132,7 @@ Then('Admin should see Program Details dialog', async function () {
 });
 
 Then('Admin should see red  asterisk mark  beside mandatory field Name and status', async function () {
- 
+   await this.programPage.clickEscape();
    const nameastText = await this.programPage.nameAsterisk.textContent();
    const statusastText = await this.programPage.statusAsterisk.textContent();
    assert.equal(nameastText, '*', 'Red asterisk mark should be visible beside Name field');
