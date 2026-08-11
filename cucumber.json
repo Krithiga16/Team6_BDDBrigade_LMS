@@ -10,32 +10,33 @@
     },
     "format": [
       "progress",
-      "json:reports/sequential-report.json"
+      "json:reports/sequential-report.json",
+      "allure-cucumberjs/reporter"
     ]
   },
   "parallel": {
     "paths": [
       "features/login.feature",
       "features/home.feature",
-      "feature/program.feature",
-      "features/AddNewProgram.feature",
-      "features/EditDeleteProgram.feature",
-      "features/ManageProgram.feature",
-      "features/ProgramPagination.feature",
-      "features/addNewBatch.feature",
       "features/addNewBatchUI.feature",
       "features/manageBatchUI.feature",
       "features/batch.feature",
       "features/manageBatch.feature",
-      "features/logout.feature"
+      "features/logout.feature",
+      "feature/program.feature",
+      "features/AddNewProgram.feature",
+      "features/EditDeleteProgram.feature",
+      "features/ManageProgram.feature",
+      "features/ProgramPagination.feature"
     ],
-    "parallel": 1,
+    "parallel": 2,
     "formatOptions": {
       "snippetInterface": "synchronous"
     },
     "format": [
       "progress",
-      "json:reports/parallel-report.json"
+      "json:reports/parallel-report.json",
+      "allure-cucumberjs/reporter"
     ]
   }
 }
