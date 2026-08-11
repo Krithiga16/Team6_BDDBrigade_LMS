@@ -2,7 +2,9 @@
   "sequential": {
     "paths": [
       "features/addNewBatch.feature",
-      "features/batchSearchBar.feature"
+      "features/batchSearchBar.feature",
+      "features/AddNewProgram.feature",
+      "features/EditDeleteProgram.feature"
     ],
     "parallel": 1,
     "formatOptions": {
@@ -17,16 +19,15 @@
     "paths": [
       "features/login.feature",
       "features/home.feature",
+      "feature/program.feature",
+      "features/ManageProgram.feature",
+      "features/ProgramPagination.feature",
       "features/addNewBatchUI.feature",
       "features/manageBatchUI.feature",
       "features/batch.feature",
       "features/manageBatch.feature",
-      "features/logout.feature",
-      "feature/program.feature",
-      "features/AddNewProgram.feature",
-      "features/EditDeleteProgram.feature",
-      "features/ManageProgram.feature",
-      "features/ProgramPagination.feature"
+      "features/logout.feature"
+      
     ],
     "parallel": 2,
     "formatOptions": {
