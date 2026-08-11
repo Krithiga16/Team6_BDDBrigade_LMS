@@ -5,13 +5,19 @@
     "addBatchMenu": "Add New Batch",
     "batchNameAlphabet": "BatchTest",
     "errMsgBatchSuffix": "This field accept only numbers and max 5 count.",
-    "batchProgram" :"HBDDBrigade-BDD",
-    "batchProgram2":"HBDDBrigade-PW",
+    "batchProgram" :"TeamSixBDDBrigade",
+    "batchProgram2":"TeamSix-BDD",
     "batchDesc": "Batch Description001",
     "invalidDesc":"Batch&Desc",
+<<<<<<< HEAD
     "batchName":"026",
     "batchName1":"989",
     "batchName2":"027",
+=======
+    "batchName":"003",
+    "batchName1":"998",
+    "batchName2":"004",
+>>>>>>> e88113859baaff8714f62230aba69acfc59ce89e
     "sortBatch":"HBrigade-BDD_0",
     "nonexistBatch":"LMSHackathon",
     "batchStatus":"Active",
