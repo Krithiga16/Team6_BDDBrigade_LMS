@@ -42,6 +42,7 @@ class BatchPage {
         this.tableHeaders = page.locator('thead tr th')
         this.chkboxHeader = page.locator('thead tr th p-tableheadercheckbox')
         this.sortIcon = page.locator('thead p-sorticon')
+        this.batchNameHeader = page.locator('[psortablecolumn="batchName"]')
         this.batchNameTable = page.locator('//tbody/tr/td[2]')
         this.firstPageBtn = page.locator('.p-paginator-first')
         this.prevPageBtn = page.locator('.p-paginator-prev')
@@ -350,5 +351,36 @@ class BatchPage {
             }
         }
     }
+
+    async sortBtnClick(){
+        await this.batchNameHeader.click();
+        await this.page.waitForLoadState('networkidle');
+    }
+
+    async getAscSortedValuesBatchName(){
+        const beforeSortClick = await this.batchNameTable.allInnerTexts();//values before sorted
+
+        await this.batchNameHeader.click();
+        await this.page.waitForLoadState('networkidle');
+
+        const actualAscValue = await this.batchNameTable.allInnerTexts();//getting values after sorted
+        const expectedAscValue =beforeSortClick.sort((a,b)=> a.localeCompare(b,undefined, {sensitivity: 'base', numeric:true}))
+        return {actualAscValue,expectedAscValue }
+        
+    }
+
+    async getDesSortedValuesBatchName(){
+
+        const beforeSortValues = await this.batchNameTable.allInnerTexts();
+        await this.batchNameHeader.click();
+        await this.page.waitForLoadState('networkidle');
+        const actualDesValue = await this.batchNameTable.allInnerTexts();
+        const expectedDesValue =[...beforeSortValues].sort((a,b)=> b.localeCompare(a,undefined, {sensitivity: 'base', numeric:true}))
+        console.log(actualDesValue)
+        console.log(expectedDesValue)
+        return {actualDesValue,expectedDesValue }
+
+    }
+
 }
 module.exports = BatchPage;
