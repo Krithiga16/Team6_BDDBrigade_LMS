@@ -17,6 +17,10 @@
     "paths": [
       "features/login.feature",
       "features/home.feature",
+      "feature/program.feature",
+      "features/AddNewProgram.feature",
+      "features/EditDeleteProgram.feature",
+      "features/ProgramPagination.feature",
       "features/addNewBatchUI.feature",
       "features/manageBatchUI.feature",
       "features/batch.feature",
