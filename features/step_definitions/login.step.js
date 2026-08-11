@@ -100,17 +100,35 @@ Then('Admin should see {string}, {string} ,{string} options in dropdown', async 
   await expect(this.loginPage.studentOption).toHaveText(string3);
 });
 
-//@LoginFormPresence
-Then('Admin should see login form on the centre of the page', async function () {
-console.log(await this.loginPage.loginForm.count());
-});
-
 //@LoginButtonDisplayed
 Then('Admin should see login button', async function () {    
 const isLoginButtonVisible = await this.loginPage.isLoginButtonVisible();
 assert.equal(isLoginButtonVisible, true);
 });
 
+
+//@InputFieldAlignment
+Then('Username , Password labels and select the role should be left-aligned above their respective input fields', async function () {
+    //username
+    const usernameLabelBox = await this.loginPage.username.boundingBox();
+    const usernameInputBox = await this.loginPage.usernameInput.boundingBox();
+
+    expect(usernameLabelBox).not.toBeNull();
+    expect(usernameInputBox).not.toBeNull();
+    expect(Math.abs(usernameLabelBox.x - usernameInputBox.x)).toBeLessThan(5);
+
+//password
+    const passwordLabelBox = await this.loginPage.pwdLabel.boundingBox();
+    const passwordInputBox = await this.loginPage.passwordInput.boundingBox();
+
+    expect(passwordLabelBox).not.toBeNull();
+    expect(passwordInputBox).not.toBeNull();
+    expect(Math.abs(passwordLabelBox.x - passwordInputBox.x)).toBeLessThan(5);
+
+//select the role
+    const roleSelectBox = await this.loginPage.roleInput.boundingBox();
+    expect(roleSelectBox).not.toBeNull();
+});
 
 //@UserTextColour
 Then('Admin should see user text in gray color', async function () {
@@ -222,7 +240,6 @@ Then('Admin should see error Messge {string}', async function (string) {
 });
 
 //@KeyboardLogin
-
 When('Admin clicks login in button after entering  a valid credential through keyboard', async function () {
    await this.loginPage.loginUsingKeyboard( datajson.username,datajson.password);
 });
