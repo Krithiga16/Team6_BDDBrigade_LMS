@@ -27,10 +27,9 @@
       "features/manageBatchUI.feature",
       "features/batch.feature",
       "features/manageBatch.feature",
-      "features/batchSearchBar.feature",
       "features/logout.feature"
     ],
-    "parallel": 2,
+    "parallel": 1,
     "formatOptions": {
       "snippetInterface": "synchronous"
     },

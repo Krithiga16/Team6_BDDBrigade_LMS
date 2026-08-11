@@ -376,8 +376,6 @@ class BatchPage {
         await this.page.waitForLoadState('networkidle');
         const actualDesValue = await this.batchNameTable.allInnerTexts();
         const expectedDesValue =[...beforeSortValues].sort((a,b)=> b.localeCompare(a,undefined, {sensitivity: 'base', numeric:true}))
-        console.log(actualDesValue)
-        console.log(expectedDesValue)
         return {actualDesValue,expectedDesValue }
 
     }
